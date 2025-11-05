@@ -1,0 +1,72 @@
+<Smartphones>
+  <Smartphone>
+  <id>11</id>
+  <name>samsung</name>
+  <unit price>35000</unit price>
+  <stock>50</stock>
+  <status>1</status>
+</Smartphone>
+
+<Smartphone>
+  <id>20</id>
+  <name>htc</name>
+  <unit price>65300</unit price>
+  <stock>35</stock>
+  <status>0</status>
+  </Smartphone>
+
+  <Smartphone>
+    <id>23</id>
+    <name>nokia</name>
+    <unit price>25100</unit price>
+    <stock>35</stock>
+    <status>1</status>
+  </Smartphone>
+</Smartphones>
+
+<Records>
+    <Record>
+    <sl. no.>23</sl.no.>
+    <name>john carter</name>
+    <admission date>25/12/2015</admission date>
+</Record>
+
+<Record>
+  <sl. no.>29</sl.no.>
+  <name>Bob Marshal</name>
+  <admission date>13/11/1999</admission date>
+</Record>
+
+<Record>
+  <sl. no.>35</sl.no.>
+  <name>clark kent</name>
+  <admission date>17/06/2005</admission date>
+</Record>
+</Records>
+
+<Represents>
+    <Represent>
+    <id>1</id>
+    <name>jhon doe</name>
+    <Address>H# 389, r#3 banani dhaka</Address>
+    <Depertment>sales</Depertment>
+    <saary>$2000</salary>
+    </Represent>
+
+    <Represent>
+    <id>2</id>
+    <name>mark zukerberg</name>
+    <Address>Flat # A/1 H#20 R# ,Mirpur,dhaka</Address>
+    <Depertment>Acounts</Depertment>
+    <saary>$12000</salary>
+    </Represent>
+
+
+    <Represent>
+    <id>3</id>
+    <name>Alo voski</name>
+    <Address>H# 38 R# Motijhil</Address>
+    <Depertment>Human Resource</Depertment>
+    <saary>$30000</salary>
+    </Represent>
+</Represents>

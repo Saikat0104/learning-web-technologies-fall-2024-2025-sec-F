@@ -1,0 +1,19 @@
+<Records>
+    <Record>
+    <sl. no.>23</sl.no.>
+    <name>john carter</name>
+    <admission date>25/12/2015</admission date>
+</Record>
+
+<Record>
+  <sl. no.>29</sl.no.>
+  <name>Bob Marshal</name>
+  <admission date>13/11/1999</admission date>
+</Record>
+
+<Record>
+  <sl. no.>35</sl.no.>
+  <name>clark kent</name>
+  <admission date>17/06/2005</admission date>
+</Record>
+</Records>
