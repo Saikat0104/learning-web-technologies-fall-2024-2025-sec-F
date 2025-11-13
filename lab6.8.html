@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Person Profile Form</title>
+    <style>
+        .error { color: red; }
+        .ok { color:green; }
+        label { display: inline-block; width: 120px; }
+    </style>
+</head>
+
+<body>
+    <table border="1" width="100%" height="500">
+        <tr height="80">
+            <td colspan="3" align="center">
+                <h1>Person Profile</h1>
+            </td>
+        </tr>
+            <td width="60%" hight="top">
+                <h3>Fill the Form</h3>
+                <form id="profileForm" novalidate>
+                    <label for="name">Name</label>
+                        <input type="text" id="name"><br><br>
+
+                    <label for="email">Email</label>
+                        <input type="text" id="email"><br><br>
+
+                    <label>Gender</label>
+                        <input type="radio" name="gender" value="Male"> Male
+                        <input type="radio" name="gender" value="Female"> Female
+                        <input type="radio" name="gender" value="Other"> Other<br><br>
+
+                    <label>Date of Birth</label>
+                        <input type="text" id="dd" placeholder="dd" maxlength="2" style="width:40px"> 
+                        <input type="text" id="mm" placeholder="mm" maxlength="2" style="width:40px">
+                        <input type="text" id="yyyy" placeholder="yyyy" maxlength="4" style="width:60px"><br><br>
+
+                    <label for="blood">Blood Group</label>
+                        <select id="blood">
+                            <option value="">-- Select --</option>
+                            <option>A+</option><option>A-</option>
+                            <option>B+</option><option>B-</option>
+                            <option>O+</option><option>O-</option>
+                            <option>AB+</option><option>AB-</option>
+                        </select><br><br>
+                    
+
+                    <label>Degree</label>
+                        <input type="checkbox" name="deg" value="SSC"> SSC
+                        <input type="checkbox" name="deg" value="HSC"> HSC
+                        <input type="checkbox" name="deg" value="BSc"> BSc
+                        <input type="checkbox" name="deg" value="MSc"> MSc<br><br>
+
+                    <label for="photo">Photo</label>
+                        <input type="file" id="photo"><br><br>
+                                       
+                        <button type="submit">Submit</button>
+                        <button type="reset">Reset</button>
+
+                    <div id="msg"></div>
+                </form>
+            </td>
+
+        </tr>
+    </table>
+
+    <script>
+        function isLetter(ch) {
+            const code = ch.toUpperCase().charCodeAt(0);
+            return code >= 65 && code <= 90;
+        }
+        function isAllowedNameChar(ch) {
+            return isLetter(ch) || ch === '.' || ch === '-' || ch === ' ';
+        }
+        function isDigits(str) {
+            if (!str) return false;
+            for (let i = 0; i < str.length; i++) {
+                if (str[i] < '0' || str[i] > '9') return false;
+            }
+            return true;
+        }
+        function validateName(value) {
+            const name = value.trim();
+            if (!name) return "Name cannot be empty.";
+            if (!isLetter(name[0])) return "Name must start with a letter.";
+            for (let ch of name) {
+                if (!isAllowedNameChar(ch)) return "Invalid character in name.";
+            }
+            const parts = name.split(" ").filter(p => p.length > 0);
+            if (parts.length < 2) return "Name must contain at least two words.";
+            return "";
+        }
+
+        function validateEmail(value) {
+            const email = value.trim();
+            if (!email) return "Email cannot be empty.";
+            const at = email.indexOf("@");
+            const lastAt = email.lastIndexOf("@");
+            const dot = email.lastIndexOf(".");
+            if (at <= 0 || at !== lastAt) return "Email must contain one '@'.";
+            if (dot < at + 2) return "Email must contain '.' after '@'.";
+            if (dot >= email.length - 1) return "Email must end with domain.";
+            if (email.indexOf(" ") !== -1) return "Email cannot contain spaces.";
+            return "";
+        }
+
+        function validateGender() {
+            return document.querySelector('input[name="gender"]:checked') ? "" : "Select a gender.";
+        }
+
+        function validateDob(dd, mm, yyyy) {
+            if (!dd || !mm || !yyyy) return "Date fields cannot be empty.";
+            if (!isDigits(dd) || !isDigits(mm) || !isDigits(yyyy)) return "Date must be digits.";
+            const d = parseInt(dd), m = parseInt(mm), y = parseInt(yyyy);
+            if (d < 0 || d > 31) return "Day must be 0-31.";
+            if (m < 1 || m > 12) return "Month must be 1-12.";
+            if (y < 1900 || y > 2016) return "Year must be 1900-2016.";
+            return "";
+        }
+
+        function validateBlood() {
+            return document.getElementById("blood").value ? "" : "Select a blood group.";
+        }
+
+        function validateDegree() {
+            const any = Array.from(document.querySelectorAll('input[name="deg"]')).some(i => i.checked);
+            return any ? "" : "Select at least one degree.";
+        }
+
+        function validatePhoto() {
+            const f = document.getElementById("photo");
+            return (f.files && f.files.length > 0) ? "" : "Upload a photo.";
+        }
+
+        document.getElementById("profileForm").addEventListener("submit", function(e){
+            e.preventDefault();
+            const errors = [];
+            const nameError = validateName(document.getElementById("name").value);
+            if (nameError) errors.push(nameError);
+            const emailError = validateEmail(document.getElementById("email").value);
+            if (emailError) errors.push(emailError);
+            const genderError = validateGender();
+            if (genderError) errors.push(genderError);
+            const dobError = validateDob(
+                document.getElementById("dd").value,
+                document.getElementById("mm").value,
+                document.getElementById("yyyy").value
+            );
+            if (dobError) errors.push(dobError);
+            const bloodError = validateBlood();
+            if (bloodError) errors.push(bloodError);
+            const degError = validateDegree();
+            if (degError) errors.push(degError);
+            const photoError = validatePhoto();
+            if (photoError) errors.push(photoError);
+
+            const msg = document.getElementById("msg");
+            if (errors.length > 0) {
+                msg.innerHTML = errors.map(e => "• " + e).join("<br>");
+                msg.className = "error";
+            } else {
+                msg.textContent = "All inputs are valid. Form ready to submit.";
+                msg.className = "ok";
+            }
+        }
+    );
+    </script>
+</body>
+
+</html>

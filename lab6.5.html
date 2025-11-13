@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title>Degree Validation</title>
+  <style>
+    .error { color: red; }
+    .ok { color: green; }
+  </style>
+</head>
+<body>
+  <form id="degreeForm">
+    <label>Degree:</label>
+    <input type="checkbox" name="deg" value="SSC"> SSC
+    <input type="checkbox" name="deg" value="HSC"> HSC
+    <input type="checkbox" name="deg" value="BSc"> BSc
+    <br><br>
+    <button type="submit">Submit</button>
+    <div id="msg"></div>
+  </form>
+
+  <script>
+    document.getElementById("degreeForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const checked = Array.from(document.querySelectorAll('input[name="deg"]')).some(i => i.checked);
+      const msg = document.getElementById("msg");
+      if (!checked) {
+        msg.textContent = "Please select at least one degree.";
+        msg.className = "error";
+      } else {
+        msg.textContent = "Degree selection is valid.";
+        msg.className = "ok";
+      }
+    });
+  </script>
+</body>
+</html>

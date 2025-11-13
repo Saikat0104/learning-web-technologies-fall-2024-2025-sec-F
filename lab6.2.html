@@ -1,0 +1,49 @@
+<html>
+<head>
+  <title>Email Validation</title>
+  <style>
+    .error { color: red; }
+    .ok { color: green; }
+  </style>
+</head>
+<body>
+  <form id="emailForm">
+    <label>Email:</label>
+    <input type="text" id="email">
+    <button type="submit">Submit</button>
+    <div id="msg"></div>
+  </form>
+
+  <script>
+    function validateEmail(email) {
+      const value = email.trim();
+      if (!value) return "Email cannot be empty.";
+
+      const at = value.indexOf("@");
+      const lastAt = value.lastIndexOf("@");
+      const dot = value.lastIndexOf(".");
+
+      if (at <= 0 || at !== lastAt) return "Email must contain one '@'.";
+      if (dot < at + 2) return "Email must contain '.' after '@'.";
+      if (dot >= value.length - 1) return "Email must end with domain.";
+      if (value.indexOf(" ") !== -1) return "Email cannot contain spaces.";
+
+      return "";
+    }
+
+    document.getElementById("emailForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const msg = document.getElementById("msg");
+      const error = validateEmail(email);
+      if (error) {
+        msg.textContent = error;
+        msg.className = "error";
+      } else {
+        msg.textContent = "Email is valid.";
+        msg.className = "ok";
+      }
+    });
+  </script>
+</body>
+</html>

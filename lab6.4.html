@@ -1,0 +1,56 @@
+<html>
+<head>
+  <title>Date of Birth Validation</title>
+  <style>
+    .error { color: red; }
+    .ok { color: green; }
+    input { width: 50px; text-align: center; }
+  </style>
+</head>
+<body>
+  <form id="dobForm">
+    <label>Date of Birth:</label>
+    <input type="text" id="dd" placeholder="dd" maxlength="2"> /
+    <input type="text" id="mm" placeholder="mm" maxlength="2"> /
+    <input type="text" id="yyyy" placeholder="yyyy" maxlength="4">
+    <button type="submit">Submit</button>
+    <div id="msg"></div>
+  </form>
+
+  <script>
+    function isDigits(str) {
+      if (!str) return false;
+      for (let i = 0; i < str.length; i++) {
+        if (str[i] < '0' || str[i] > '9') return false;
+      }
+      return true;
+    }
+
+    function validateDob(dd, mm, yyyy) {
+      if (!dd || !mm || !yyyy) return "Date fields cannot be empty.";
+      if (!isDigits(dd) || !isDigits(mm) || !isDigits(yyyy)) return "All fields must be numeric.";
+      const d = parseInt(dd), m = parseInt(mm), y = parseInt(yyyy);
+      if (d < 0 || d > 31) return "Day must be between 0 and 31.";
+      if (m < 1 || m > 12) return "Month must be between 1 and 12.";
+      if (y < 1900 || y > 2016) return "Year must be between 1900 and 2016.";
+      return "";
+    }
+
+    document.getElementById("dobForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const dd = document.getElementById("dd").value;
+      const mm = document.getElementById("mm").value;
+      const yyyy = document.getElementById("yyyy").value;
+      const msg = document.getElementById("msg");
+      const error = validateDob(dd, mm, yyyy);
+      if (error) {
+        msg.textContent = error;
+        msg.className = "error";
+      } else {
+        msg.textContent = "Date of Birth is valid.";
+        msg.className = "ok";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>Picture Upload Validation</title>
+  <style>
+    .error { color: red; }
+    .ok { color: green; }
+  </style>
+</head>
+<body>
+  <form id="pictureForm">
+    <label>Picture:</label>
+    <input type="file" id="picture"><br><br>
+    <button type="submit">Submit</button>
+    <div id="msg"></div>
+  </form>
+
+  <script>
+    document.getElementById("pictureForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const fileInput = document.getElementById("picture");
+      const msg = document.getElementById("msg");
+
+      if (!fileInput.files || fileInput.files.length === 0) {
+        msg.textContent = "Please upload a picture.";
+        msg.className = "error";
+      } else {
+        msg.textContent = "Picture uploaded successfully.";
+        msg.className = "ok";
+      }
+    });
+  </script>
+</body>
+</html>

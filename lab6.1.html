@@ -1,0 +1,54 @@
+<html>
+<head>
+  <title>Name Validation</title>
+  <style>
+    .error { color: red; }
+    .ok { color: green; }
+  </style>
+</head>
+<body>
+  <form id="nameForm">
+    <label>Name:</label>
+    <input type="text" id="name">
+    <button type="submit">Submit</button>
+    <div id="msg"></div>
+  </form>
+
+  <script>
+    function isLetter(ch) {
+      const code = ch.toUpperCase().charCodeAt(0);
+      return code >= 65 && code <= 90;
+    }
+
+    function isAllowedChar(ch) {
+      return isLetter(ch) || ch === '.' || ch === '-' || ch === ' ';
+    }
+
+    function validateName(name) {
+      const trimmed = name.trim();
+      if (!trimmed) return "Name cannot be empty.";
+      if (!isLetter(trimmed[0])) return "Name must start with a letter.";
+      for (let ch of trimmed) {
+        if (!isAllowedChar(ch)) return "Invalid character in name.";
+      }
+      const words = trimmed.split(" ").filter(w => w.length > 0);
+      if (words.length < 2) return "Name must contain at least two words.";
+      return "";
+    }
+
+    document.getElementById("nameForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const msg = document.getElementById("msg");
+      const error = validateName(name);
+      if (error) {
+        msg.textContent = error;
+        msg.className = "error";
+      } else {
+        msg.textContent = "Name is valid.";
+        msg.className = "ok";
+      }
+    });
+  </script>
+</body>
+</html>
