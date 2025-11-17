@@ -1,0 +1,26 @@
+<html>
+<head>
+  <title>Simple Calculator</title>
+</head>
+<body>
+  <h2>Calculator</h2>
+
+  <input id="num1" type="number" placeholder="  ">
+  <button onclick="document.getElementById('num1').value=''">C</button>
+  <br><br>
+
+  <input id="num2" type="number" placeholder="  ">
+  <button onclick="document.getElementById('num2').value=''">C</button>
+  <br><br>
+
+  <button onclick="document.getElementById('result').value = Number(num1.value) + Number(num2.value)">+</button>
+  <button onclick="document.getElementById('result').value = Number(num1.value) - Number(num2.value)">-</button>
+  <button onclick="document.getElementById('result').value = Number(num1.value) * Number(num2.value)">*</button>
+  <button onclick="document.getElementById('result').value = (Number(num2.value)!=0 ? Number(num1.value)/Number(num2.value) : 'Error')">/</button>
+  <br><br>
+
+  <input id="result" type="text" placeholder="  " readonly><br><br>
+  
+  <button onclick="num1.value=''; num2.value=''; result.value=''">AC</button>
+</body>
+</html>
