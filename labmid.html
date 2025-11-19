@@ -1,0 +1,147 @@
+<html>
+<head>
+    <title> Form Details </title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .field-row { margin-bottom: 10px; }
+        label { margin-right: 10px; font-weight: bold; }
+        input, select, button { padding: 5px; margin: 5px; }
+        #outputBox {
+            margin-top: 20px;
+            padding: 10px;
+            border: 2px solid rgb(100, 15, 15);
+            width: 60%;
+            background: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+ 
+<h2> Form </h2>
+ 
+<input type="text" id="labelName" placeholder="Enter label name">
+ 
+<select id="fieldType">
+    <option value="text">Text Box</option>
+    <option value="radio">Radio Button</option>
+    <option value="date">Date (DOB)</option>
+    <option value="select">Dropdown</option>
+    <option value="file">Upload File</option>
+    <option value="checkbox">Checkbox</option>
+</select>
+ 
+<button onclick="addField()">ADD</button>
+ 
+<hr>
+ 
+<h3>Details:</h3>
+<div id="formArea"></div>
+ 
+<button onclick="saveForm()">SAVE</button>
+ 
+<div id="outputBox"></div>
+ 
+<script>
+ 
+let fieldCount = 0;
+ 
+function addField() {
+    let label = document.getElementById("labelName").value;
+    let type = document.getElementById("fieldType").value;
+ 
+    if (label === "") {
+        alert("Please enter a label name");
+        return;
+    }
+ 
+    fieldCount++;
+ 
+    let row = document.createElement("div");
+    row.className = "field-row";
+ 
+    let lbl = document.createElement("label");
+    lbl.innerText = label + ": ";
+
+    let input;
+ 
+    if (type === "text") {
+        input = document.createElement("input");
+        input.type = "text";
+    }
+    else if (type === "radio") {
+        input = document.createElement("input");
+        input.type = "radio";
+    }
+    else if (type === "date") {
+        input = document.createElement("input");
+        input.type = "date";
+    }
+    else if (type === "select") {
+        input = document.createElement("select");
+        let opt1 = document.createElement("option");
+        opt1.text = "Option 1";
+        let opt2 = document.createElement("option");
+        opt2.text = "Option 2";
+        input.add(opt1);
+        input.add(opt2);
+    }
+    else if (type === "file") {
+        input = document.createElement("input");
+        input.type = "file";
+    }
+    else if (type === "checkbox") {
+        input = document.createElement("input");
+        input.type = "checkbox";
+    }
+ 
+    input.id = "field" + fieldCount;
+ 
+    row.appendChild(lbl);
+    row.appendChild(input);
+ 
+    document.getElementById("formArea").appendChild(row);
+ 
+    document.getElementById("labelName").value = "";
+}
+ 
+function saveForm() {
+ 
+    let display = "<h3>Entered Form Data:</h3>";
+ 
+    for (let i = 1; i <= fieldCount; i++) {
+        let input = document.getElementById("field" + i);
+        let label = input.previousSibling.innerText.replace(":", "");
+ 
+        let value = "";
+ 
+        if (input.type === "text") {
+            value = input.value;
+        }
+        else if (input.type === "radio") {
+            value = input.checked ? "Selected" : "Not Selected";
+        }
+        else if (input.type === "date") {
+            value = input.value;
+        }
+        else if (input.tagName === "SELECT") {
+            value = input.value;
+        }
+        else if (input.type === "file") {
+            value = input.value.split("\\").pop(); // file name only
+        }
+        else if (input.type === "checkbox") {
+            value = input.checked ? "Checked" : "Not Checked";
+        }
+ 
+        display += `<p><b>${label}:</b> ${value}</p>`;
+    }
+ 
+    document.getElementById("outputBox").innerHTML = display;
+}
+ 
+</script>
+ 
+</body>
+</html>
+ 
+ 
