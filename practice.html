@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Membership Check</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    label {
+      display: inline-block;
+      width: 100px;
+    }
+
+    input[type="number"] {
+      padding: 5px;
+      width: 100px;
+    }
+
+    #message {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Community Membership Form</h2>
+
+<form>
+  <label for="age">Enter Age:</label>
+  <input type="number" id="age" name="age">
+</form>
+
+<!-- Dynamic message will appear here -->
+<p id="message"></p>
+
+<script>
+  // Get references to input and message elements
+  const ageInput = document.getElementById("age");
+  const msg = document.getElementById("message");
+
+  // Add event listener for input
+  ageInput.addEventListener("input", () => {
+    let age = parseInt(ageInput.value);
+
+    if (isNaN(age)) {
+      msg.textContent = "";
+      return;
+    }
+
+    if (age < 40) {
+      msg.textContent = "To be a part of the community, you need to at least 40";
+      msg.style.color = "black";
+    } else if (age >= 40 && age <= 50) {
+      msg.textContent = "You are the youngsters of this community";
+      msg.style.color = "black";
+    } else if (age > 50) {
+      msg.textContent = "Top level members of the group";
+      msg.style.color = "red";
+    } else {
+      msg.textContent = "";
+    }
+  });
+</script>
+
+</body>
+</html>
